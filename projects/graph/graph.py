@@ -116,7 +116,7 @@ class Graph:
         """
         Return a list containing the shortest path from
         starting_vertex to destination_vertex in
-        breath-first order.
+        breadth-first order.
         """
         # Create a queue
         q = Queue()
