@@ -88,14 +88,23 @@ class Graph:
                     new_path.append(next_vert)
                     stack.push(new_path)
 
-    def dft_recursive(self, starting_vertex):
+    def dft_recursive(self, starting_vertex, visited=set()):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
 
         This should be done using recursion.
         """
-        pass  # TODO
+        # add starting_vertex to visited
+        visited.add(starting_vertex)
+        # print current vertex
+        print(starting_vertex)
+
+        # call dft_recursive on every non-visited neighbor
+        for neighbor in self.get_neighbors(starting_vertex):
+            if neighbor not in visited:
+                self.dft_recursive(neighbor)
+
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -148,7 +157,7 @@ if __name__ == '__main__':
     Should print:
         {1: {2}, 2: {3, 4}, 3: {5}, 4: {6, 7}, 5: {3}, 6: {3}, 7: {1, 6}}
     '''
-    print(graph.vertices)
+    # print(graph.vertices)
 
     '''
     Valid BFT paths:
@@ -175,7 +184,7 @@ if __name__ == '__main__':
         1, 2, 4, 6, 3, 5, 7
     '''
     # graph.dft(1)
-    # graph.dft_recursive(1)
+    graph.dft_recursive(1)
 
     # '''
     # Valid BFS path:
