@@ -131,7 +131,7 @@ class Graph:
                 visited.add(path[-1])
             # enqueue neighbors
             for neighbor in self.get_neighbors(path[-1]):
-                # create deep copy of path
+                # create copy of path
                 new_path = list(path)
                 # add neighbor to it
                 new_path.append(neighbor)
@@ -163,14 +163,14 @@ class Graph:
                 visited.add(path[-1])
             # push neighbors onto stack
             for neighbor in self.get_neighbors(path[-1]):
-                # create deep copy of path
+                # create copy of path
                 new_path = list(path)
                 # append neighbor
                 new_path.append(neighbor)
                 # push new_path to stack
                 stack.push(new_path)
 
-    def dfs_recursive(self, starting_vertex, destination_vertex):
+    def dfs_recursive(self, starting_vertex, destination_vertex, path=list(), visited=set()):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
@@ -178,7 +178,27 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        # create copy of path
+        new_path = list(path)
+        # append/add starting_vertex to new_path and visited
+        new_path.append(starting_vertex)
+        visited.add(starting_vertex)
+        # if last element in path is destination_vertex
+        if new_path[-1] == destination_vertex:
+            # return path
+            return new_path
+        
+        # call dfs_recursive on non-visited neighbors
+        for neighbor in self.get_neighbors(new_path[-1]):
+            # check if neighbor in visited
+            if not neighbor in visited:
+                # call dfs_recursive on neighbor
+                returned = self.dfs_recursive(neighbor, destination_vertex, new_path)
+                # if return value isn't None, return it
+                if returned is not None:
+                    return returned 
+        
+
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
@@ -245,5 +265,5 @@ if __name__ == '__main__':
     #     [1, 2, 4, 6]
     #     [1, 2, 4, 7, 6]
     # '''
-    print(graph.dfs(1, 6))
+    # print(graph.dfs(1, 6))
     # print(graph.dfs_recursive(1, 6))
